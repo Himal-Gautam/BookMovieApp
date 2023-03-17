@@ -13,6 +13,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import TextField from "@mui/material/TextField";
+import { useMatch } from "react-router";
+// import axios from "axios";
 
 function Header(props) {
   const [isLoggedin, setIsLoggedin] = React.useState(false);
@@ -33,33 +35,57 @@ function Header(props) {
   };
 
   let handleRegister = () => {
-    fetch(props.baseUrl + "/v1/signup", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email_address: email,
-        first_name: firstname,
-        last_name: lastname,
-        mobile_number: contact,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        localStorage.setItem("id", data.id)
-        setIsLoggedin(true);
-        setOpen(false);
-        setIsRegistered(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const signUpUser = async (userData) => {
+    //   try {
+    //     const response = await axios.post("API_ENDPOINT_URL", userData);
+    //     console.log(response.data); // handle the response data here
+    //   } catch (error) {
+    //     console.error(error); // handle any errors here
+    //   }
+    // };
+
+    // // call the function with the signup user request data
+    // const userData = {
+    //   email_address: "john.doe@example.com",
+    //   first_name: "John",
+    //   last_name: "Doe",
+    //   mobile_number: "1234567890",
+    //   password: "password123",
+    // };
+    // signUpUser(userData);
+
+    
+    // fetch(props.baseUrl + "signup", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json;charset=UTF-8",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    //   body: JSON.stringify({
+    //     email_address: email,
+    //     first_name: firstname,
+    //     last_name: lastname,
+    //     mobile_number: contact,
+    //     password: password,
+    //   }),
+    // })
+    //   .then(
+    //     (response) => console.log(response)
+    //     // response.json()
+    //   )
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //     localStorage.setItem("id", data.id);
+    //     setIsLoggedin(true);
+    //     setOpen(false);
+    //     setIsRegistered(true);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   };
   let handleFormLogin = () => {
-    fetch(props.baseUrl + "/signup", {
+    fetch(props.baseUrl + "/signin", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +108,6 @@ function Header(props) {
       .catch((error) => {
         console.error("Error:", error);
       });
-    
   };
   let handleLogin = () => {
     setOpen(true);
@@ -127,7 +152,7 @@ function Header(props) {
               paddingLeft: "16px",
             }}
             sx={{
-                maxHeight: 36,
+              maxHeight: 36,
               display: "flex",
               bgcolor: "#222",
               justifyContent: "space-between",
@@ -135,7 +160,7 @@ function Header(props) {
           >
             <img src={logo} className="App-logo" alt="logo" />
             <Stack direction="row" spacing={2}>
-              {location.pathname !== "/movie/:id" && (
+              {useMatch("/movie/:id") && (
                 <Button
                   size="small"
                   color="primary"

@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import "./Home.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import ImageList from "@mui/material/ImageList";
@@ -34,6 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home({ baseUrl }) {
+   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
   const [movies, setMovies] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -68,6 +70,7 @@ function Home({ baseUrl }) {
 
   const handleRDE = () => {};
   const handleRDS = () => {};
+
 
   return (
     <div>
@@ -116,7 +119,8 @@ function Home({ baseUrl }) {
                 item
                 xs={2}
                 sx={{ height: 350, width: 200 }}
-                style={{cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
+                onClick={()=> navigate(`/movie/${movie.id}`)}
               >
                 <img
                   src={movie.poster_url}
