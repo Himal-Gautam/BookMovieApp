@@ -1,3 +1,7 @@
+I am Himal Gautam,
+I am updating the git even after submission as some secitions were remaining.
+None of my teammates replied to messages. So consider a single job person effort. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -2524,6 +2528,8 @@ In the future, we might start automatically compiling incompatible third-party m
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
-#   B o o k M o v i e A p p  
- #   B o o k M o v i e A p p  
+#   B o o k M o v i e A p p 
+ 
+ #   B o o k M o v i e A p p 
+ 
  
