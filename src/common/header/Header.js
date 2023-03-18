@@ -15,8 +15,10 @@ import TabPanel from "@mui/lab/TabPanel";
 import TextField from "@mui/material/TextField";
 import { useMatch } from "react-router";
 // import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function Header(props) {
+  const { id } = useParams();
   const [isLoggedin, setIsLoggedin] = React.useState(false);
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [username, setUsername] = React.useState(false);
@@ -29,7 +31,6 @@ function Header(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [value, setValue] = React.useState("1");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -122,7 +123,7 @@ function Header(props) {
   };
 
   let handleBookshow = () => {
-    let id = 1;
+    // let id = props.match.params.id;
     isLoggedin ? navigate(`/bookshow/${id}`) : setOpen(true);
   };
 

@@ -35,14 +35,17 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home({ baseUrl }) {
-   const navigate = useNavigate();
+  const navigate = useNavigate(); //for navigation in react-router-dom
   const [genres, setGenres] = useState([]);
   const [movies, setMovies] = useState([]);
   const [artists, setArtists] = useState([]);
   const [movieName, setMoviename] = useState("");
   const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
+
+  // handling filter apply button click
   const handleFilter = () => {};
 
+  // loading movies, genres& artists onloading component
   useEffect(() => {
     console.log(`${baseUrl}movies?page=1&limit=10`);
     fetch(`${baseUrl}movies?page=1&limit=10`)
@@ -71,7 +74,6 @@ function Home({ baseUrl }) {
   const handleRDE = () => {};
   const handleRDS = () => {};
 
-
   return (
     <div>
       <div
@@ -84,6 +86,7 @@ function Home({ baseUrl }) {
       >
         Upcoming Movies
       </div>
+      {/* Image list for showing upcoming movies */}
       <Box sx={{ flexGrow: 1, overflow: "auto" }}>
         <ImageList
           container
@@ -110,7 +113,10 @@ function Home({ baseUrl }) {
           ))}
         </ImageList>
       </Box>
+
+      {/* Box for showing the filter & filter results */}
       <Box sx={{ display: "flex" }}>
+        {/* Container for ImageList */}
         <Container sx={{ width: "76%" }}>
           <ImageList container cols={4}>
             {movies.map((movie) => (
@@ -120,7 +126,7 @@ function Home({ baseUrl }) {
                 xs={2}
                 sx={{ height: 350, width: 200 }}
                 style={{ cursor: "pointer" }}
-                onClick={()=> navigate(`/movie/${movie.id}`)}
+                onClick={() => navigate(`/movie/${movie.id}`)}
               >
                 <img
                   src={movie.poster_url}
@@ -134,6 +140,8 @@ function Home({ baseUrl }) {
             ))}
           </ImageList>
         </Container>
+
+        {/* Conatainer for filters */}
         <Container sx={{ width: "24%" }}>
           <Card sx={{ minWidth: 275 }}>
             <CardHeader title="FIND MOVIES BY:" />
@@ -196,7 +204,11 @@ function Home({ baseUrl }) {
               </LocalizationProvider>
             </CardContent>
             <CardActions>
-              <Button sx={{ width: "100%" }} variant="contained">
+              <Button
+                sx={{ width: "100%" }}
+                onClick={handleFilter}
+                variant="contained"
+              >
                 APPLY
               </Button>
             </CardActions>

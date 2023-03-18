@@ -10,12 +10,18 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import YouTube from "react-youtube";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import StarBorderIcon from "@mui/icons-material/StarBorder";  
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Rating } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
 function Details({ baseUrl }) {
   const [movie, setMovie] = useState({});
   const [rating, setRating] = useState(0);
+
+  // getting the id paramter from url
   const { id } = useParams();
+
+  // getting details of the movie using the id
   useEffect(() => {
     if (id) {
       fetch(`${baseUrl}movies/${id}`)
@@ -35,21 +41,21 @@ function Details({ baseUrl }) {
     event.target.pauseVideo();
   };
 
-   const handleRatingChange = (event, newValue) => {
-     setRating(newValue);
-   };
-  
-  function CustomIcon(props) {
-    const { filled, ...rest } = props;
-    return filled ? (
-      <StarBorderIcon style={{ color: "yellow" }} {...rest} />
-    ) : (
-      <StarBorderIcon style={{ color: "black" }} {...rest} />
-    );
-  }
-  
+  // handling the change in ratings
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
+  };
+
+  // giving custom style to rating component
+  const StyledRating = styled(Rating)({
+    "& 	.MuiRating-iconEmpty": {
+      color: "black",
+    },
+  });
+
   return (
     <Box>
+      {/* Link to home page */}
       <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
         <Box
           style={{
@@ -64,12 +70,12 @@ function Details({ baseUrl }) {
           </Typography>
         </Box>
       </Link>
+
       <Box sx={{ display: "flex" }}>
+        {/* left container showing poster */}
         <Container
           sx={{
-            width: 1 / 5,
-            // height: "100vh",
-            // backgroundColor: "primary.dark",
+            width: 1 / 5, //20% of screen
           }}
         >
           <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
@@ -77,13 +83,12 @@ function Details({ baseUrl }) {
               <img src={movie.poster_url} alt={movie.title} loading="lazy" />
             </ImageListItem>
           </ImageList>
-          {/* <img url={movie.poster_url} style={{ height: 350 }} /> */}
         </Container>
+
+        {/* Middle container showing details */}
         <Container
           sx={{
-            width: 3 / 5,
-            // height: "100vh",
-            // backgroundColor: "primary.light",
+            width: 3 / 5, //60% of screen
           }}
         >
           <Typography variant="h2" gutterBottom>
@@ -108,6 +113,7 @@ function Details({ baseUrl }) {
           <Typography sx={{ mt: "16px" }}>
             <b>Trailer:</b>
           </Typography>
+          {/* showing trailer */}
           <YouTube
             videoId={movie.trailer_url}
             opts={{
@@ -119,34 +125,22 @@ function Details({ baseUrl }) {
             onReady={onReady}
           />
         </Container>
+
+        {/* Right container for showing rating and artists */}
         <Container
           sx={{
-            width: 1 / 5,
-            // height: "100vh",
-            // backgroundColor: "primary.dark",
+            width: 1 / 5, //20% of screen
           }}
         >
           <Typography>
             <b>Rate This Movie:</b>
           </Typography>
-          {/* <Box sx={{ display: "flex", direction:"row"}}>
-            <StarBorderIcon/>
-            <StarBorderIcon/>
-            <StarBorderIcon/>
-            <StarBorderIcon/>
-            <StarBorderIcon/>
-          </Box> */}
-          <Rating
-            name="rating"
+          <StyledRating
+            name="customized-color"
             value={rating}
-            // emptyIcon={
-            //   <StarBorderIcon fontSize="inherit" style={{ color: "black" }} />
-            // }
-            // emptyIcon={
-            //   <StarBorderIcon fontSize="inherit" style={{ color: "yellow" }} />
-            // }
-            icon={<CustomIcon />}
             onChange={handleRatingChange}
+            icon={<StarBorderIcon />}
+            emptyIcon={<StarBorderIcon />}
           />
           <Typography sx={{ mt: "16px", mb: "16px" }}>
             <b>Artists:</b>

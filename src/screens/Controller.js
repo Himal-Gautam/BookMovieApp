@@ -21,6 +21,8 @@ const Controller = () => {
           path="/confirm/:id"
           element={<Confirmation baseUrl={baseUrl} />}
         />
+
+        {/* dont know why below routes were not working */}
         {/* <Route
           exact
           path="/home"
