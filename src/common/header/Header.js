@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 
 function Header(props) {
   const { id } = useParams();
-  const [isLoggedin, setIsLoggedin] = React.useState(false);
+  const [isLoggedin, setIsLoggedin] = React.useState(false); //to know the status that oer is loggedin or not
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [username, setUsername] = React.useState(false);
   const [firstname, setFirstname] = React.useState(false);
@@ -28,9 +28,11 @@ function Header(props) {
   const [password, setPassword] = React.useState(false);
   const [contact, setContact] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("1");
+
   const location = useLocation();
   const navigate = useNavigate();
-  const [value, setValue] = React.useState("1");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -55,38 +57,41 @@ function Header(props) {
     // };
     // signUpUser(userData);
 
-    
-    // fetch(props.baseUrl + "signup", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=UTF-8",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    //   body: JSON.stringify({
-    //     email_address: email,
-    //     first_name: firstname,
-    //     last_name: lastname,
-    //     mobile_number: contact,
-    //     password: password,
-    //   }),
-    // })
-    //   .then(
-    //     (response) => console.log(response)
-    //     // response.json()
-    //   )
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     localStorage.setItem("id", data.id);
-    //     setIsLoggedin(true);
-    //     setOpen(false);
-    //     setIsRegistered(true);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+    console.log("trying to register");
+    fetch(props.baseUrl + "signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        email_address: email,
+        first_name: firstname,
+        last_name: lastname,
+        mobile_number: contact,
+        password: password,
+      }),
+    })
+      .then(
+        (response) => console.log(response)
+        // response.json()
+      )
+      .then((data) => {
+        console.log("Success:", data);
+        localStorage.setItem("id", data.id);
+        setIsLoggedin(true);
+        setOpen(false);
+        setIsRegistered(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
+
+  // handling LogIn button click
   let handleFormLogin = () => {
-    fetch(props.baseUrl + "/signin", {
+    console.log("trying too login");
+    fetch(props.baseUrl + "signin", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +115,9 @@ function Header(props) {
         console.error("Error:", error);
       });
   };
+
   let handleLogin = () => {
+
     setOpen(true);
   };
 
